@@ -26483,7 +26483,7 @@ function stringToBigInt(str) {
 }
 
 module.exports = function(bits, keys) {
-  const zerok = this
+  // const zerok = this
 
   if(!bits) bits = 512
   let {publicKey, privateKey} = keys || paillier.generateRandomKeys(bits)
