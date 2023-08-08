@@ -26482,7 +26482,7 @@ function stringToBigInt(str) {
   return bigInt(hexString, 16)
 }
 
-module.exports = function(bits, keys) {
+function zeroFunc(bits, keys) {
   // const zerok = this
 
   if(!bits) bits = 512
@@ -26506,6 +26506,7 @@ module.exports = function(bits, keys) {
   }
 }
 
+module.exports = {zeroFunc}
 }).call(this)}).call(this,require("buffer").Buffer)
 },{"big-integer":188,"buffer":63,"crypto":71,"paillier-js":189}],188:[function(require,module,exports){
 var bigInt = (function (undefined) {

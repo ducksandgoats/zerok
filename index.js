@@ -120,7 +120,7 @@ function stringToBigInt(str) {
   return bigInt(hexString, 16)
 }
 
-module.exports = function(bits, keys) {
+function zeroFunc(bits, keys) {
   // const zerok = this
 
   if(!bits) bits = 512
@@ -143,3 +143,5 @@ module.exports = function(bits, keys) {
     return verifySecret(pubkey, certificate.cipher, certificate.proof);
   }
 }
+
+module.exports = {zeroFunc}
