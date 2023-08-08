@@ -26482,31 +26482,26 @@ function stringToBigInt(str) {
   return bigInt(hexString, 16)
 }
 
-function zeroFunc(bits, keys) {
-  // const zerok = this
-
-  if(!bits) bits = 512
-  let {publicKey, privateKey} = keys || paillier.generateRandomKeys(bits)
-
-  this.keypair = {publicKey, privateKey}
-
-  this.proof = (message) => {
-    message = stringToBigInt(message.toString())
-    return encryptWithProof(publicKey, message, bits)
+class Zero {
+  constructor(bits, keys){
+    this.bits || 512
+    this.keypair = keys || paillier.generateRandomKeys(bits)
   }
-  
-  this.verify = (message, certificate, pubkey) => { 
-    if(!pubkey) pubkey = publicKey
+  proof(message){
+    message = stringToBigInt(message.toString())
+    return encryptWithProof(this.keypair.publicKey, message, this.bits)
+  }
+  verify(message, certificate, pubkey){ 
+    if(!pubkey) pubkey = this.keypair.publicKey
     message = stringToBigInt(message.toString())
     return verifyMessage(pubkey, certificate.cipher, certificate.proof, message)
   }
-
-  this.verifySecret = (certificate, pubkey = publicKey) => { 
+  verifySecret(certificate, pubkey = this.keypair.publicKey){ 
     return verifySecret(pubkey, certificate.cipher, certificate.proof);
   }
 }
 
-module.exports = {zeroFunc}
+module.exports = {Zero}
 }).call(this)}).call(this,require("buffer").Buffer)
 },{"big-integer":188,"buffer":63,"crypto":71,"paillier-js":189}],188:[function(require,module,exports){
 var bigInt = (function (undefined) {
