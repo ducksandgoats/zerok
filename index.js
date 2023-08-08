@@ -120,21 +120,13 @@ function stringToBigInt(str) {
   return bigInt(hexString, 16)
 }
 
-module.exports = function(bits) {
+module.exports = function(bits, keys) {
   const zerok = this
 
   if(!bits) bits = 512
-  let {publicKey, privateKey} = paillier.generateRandomKeys(bits)
+  let {publicKey, privateKey} = keys || paillier.generateRandomKeys(bits)
 
   this.keypair = {publicKey, privateKey}
-
-  this.newKey = (bits) => {
-    if(!bits) bits = 512
-    let keypair = paillier.generateRandomKeys(bits)
-    publicKey = keypair.publicKey
-    privateKey = keypair.privateKey
-    this.keypair = {publicKey, privateKey}
-  }
 
   this.proof = (message) => {
     message = stringToBigInt(message.toString())
